@@ -1,0 +1,87 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tirith",
+  "version": "0.1.0",
+  "description": "Defensive AI security assessment and remediation for your own repos and web apps: scan, validate exploitability in an isolated lab, and open fix pull requests.",
+  "author": {
+    "name": "Tirith",
+    "url": "https://github.com/sapoepsilon/tirith-demo-target"
+  },
+  "homepage": "https://github.com/sapoepsilon/tirith-demo-target",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "appsec",
+    "sast",
+    "vulnerability",
+    "remediation",
+    "devsecops"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Tirith",
+        "shortDescription": "Breach your lab, then fix it",
+        "longDescription": "Tirith watches over the code and web apps you own. It runs Semgrep, Gitleaks, Trivy and a passive ZAP baseline, explains each finding in plain language, checks exploitability with fixed non-destructive tests in an isolated lab with dummy data, and opens fix pull requests that a human reviews. Every action is limited to an allow-listed scope and recorded in an audit log.",
+        "developerName": "Tirith",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Scan repositories",
+          "Validate findings",
+          "Open fix pull requests",
+          "Security posture"
+        ],
+        "websiteURL": "https://tirith.example.com/",
+        "defaultPrompt": [
+          "Start with me: which box should Tirith look at first?",
+          "Breach the demo box and show me what gives.",
+          "What is the worst thing still open right now?"
+        ],
+        "brandColor": "#1B3A5C",
+        "brandColorDark": "#D3DCE6",
+        "composerIcon": "./assets/icon-32.png",
+        "logo": "./assets/icon-512.png",
+        "privacyPolicyURL": "https://tirith.example.com/privacy",
+        "termsOfServiceURL": "https://tirith.example.com/terms",
+        "supportURL": "https://tirith.example.com/support",
+        "commands": [
+          {
+            "name": "start",
+            "description": "Onboarding: scope, mode, what to run first",
+            "prompt": "Walk me through onboarding: your current mode and posture, then ask me for the one target to start with (repo, host, or url), and confirm it is in scope before touching anything."
+          },
+          {
+            "name": "hunt",
+            "description": "Mode 1: scan, prove, report",
+            "prompt": "Hunt \u2014 mode 1 on {{target}}: scan it, reproduce every finding with a control request first, and only keep what actually reproduces. Finish with the as-found report."
+          },
+          {
+            "name": "hunt-and-fix",
+            "description": "Mode 2: same, then fix and open PRs",
+            "prompt": "Hunt and fix \u2014 mode 2 on {{target}}: same proof work as mode 1, switch to assisted, fix the confirmed issues, verify each one and open a PR for review."
+          },
+          {
+            "name": "breach-demo",
+            "description": "30-second breach of the demo box",
+            "prompt": "Breach the demo box on localhost:8090 end to end and prove each flaw with a control and one payload."
+          },
+          {
+            "name": "status",
+            "description": "Posture, worst findings, mode",
+            "prompt": "What is my current posture and mode, and what are the ten worst open findings with their proof state?"
+          },
+          {
+            "name": "report",
+            "description": "Rebuild the last report as HTML",
+            "prompt": "Render the as-found and as-fixed report for my latest assessment."
+          },
+          {
+            "name": "reset",
+            "description": "Undo the demo box",
+            "prompt": "Stop any running analysis and put the demo box on 127.0.0.1:8090 back to its original state."
+          }
+        ]
+      }
+    }
+  }
+}

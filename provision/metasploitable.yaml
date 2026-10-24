@@ -1,0 +1,127 @@
+#cloud-config
+# Autoinstall for the breach-lab VM (Proxmox guest 162, bridge with no gateway router of its own: the Proxmox
+# host routes 192.168.50.0/24 and translates, there is no NAT inside the guest).
+#
+# Host provision/ on the Proxmox host with a throwaway static server (`python3 -m http.server`), point the
+# guest's installer at this file, and fill in `provisioner-url` below: the provisioner is fetched from there
+# during late-commands and runs once on first boot from breach-lab.service. The coordinator injects the SSH
+# key through `authorized-keys`; there is no password login.
+autoinstall:
+  version: 1
+  # Ubuntu Server has systemd, apt and bash; nothing here lives in a snap.
+  source:
+    id: ubuntu-server
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  timezone: Europe/Berlin
+
+  # REPLACE THIS: the script URL as seen by the installer (same static server as the answer file).
+  provisioner-url: http://192.168.50.196:8000/breach-lab.sh
+
+  # SSH on from the start; root may only use the injected key.
+  ssh:
+    install-server: true
+    allow-pw: false
+    authorized-keys:
+      - ssh-ed25519 AAAA...REPLACE-WITH-COORDINATOR-KEY
+
+  identity:
+    hostname: metasploitable
+    username: ubuntu
+    # Dummy: the demo logs in as root by key only, this one is for the keyboard console.
+    password: "$6$breachlab$zQ0Qe0m3j7KzH1r3vU9TEZ1rJ1o3B9lJ6y4Wf3u3WZ0oQ3b2W1k6x2m9p"
+  # No wizard drive: the disk is the one Proxmox attached.
+  interactive-sections: []
+
+  storage:
+    config:
+      # One GPT disk, one ESP, everything else in one LVM volume group for a single ext4 root -- no swap.
+      - type: disk
+        id: disk0
+        match:
+          size: largest
+        ptable: gpt
+        wipe: superblock
+        preserve: false
+        grub_device: true
+      - type: partition
+        id: esp
+        device: disk0
+        size: 1G
+        flag: boot
+      - type: format
+        id: esp-format
+        volume: esp
+        fstype: fat32
+      - type: mount
+        id: esp-mount
+        device: esp-format
+        path: /boot/efi
+      - type: partition
+        id: root-part
+        device: disk0
+        size: -1
+      - type: lvm_volgroup
+        id: vg0
+        name: ubuntu-vg
+        devices: [root-part]
+      - type: lvm_partition
+        id: lv-root
+        volgroup: vg0
+        name: ubuntu-lv
+        size: -1
+      - type: format
+        id: root-format
+        volume: lv-root
+        fstype: ext4
+      - type: mount
+        id: root-mount
+        device: root-format
+        path: /
+
+  network:
+    version: 2
+    ethernets:
+      # The guest NIC is ens18/ens19/...; match the prefix, never a MAC.
+      en:
+        match:
+          name: "en*"
+        dhcp4: false
+        dhcp6: false
+        addresses: [192.168.50.100/24]
+        routes:
+          - to: default
+            via: 192.168.50.196
+        nameservers:
+          addresses: [192.168.50.1]
+
+  updates: security
+
+  # Everything the provisioner needs to start by itself; the provisioner installs the lab packages.
+  packages:
+    - ca-certificates
+    - curl
+    - git
+
+  late-commands:
+    # The answer file lists its own provisioner URL under a top-level `provisioner-url:` key; the URL is
+    # read back from there so this section never carries a copy of it (it may hold the host's LAN address).
+    - >-
+      curtin in-target --target=/target -- sh -c 'u=$(sed -n "s,^ *provisioner-url: *,,p"
+      /cdrom/autoinstall.yaml 2>/dev/null); for i in $(seq 1 30); do
+      curl -fsS -o /root/breach-lab.sh "$u" && [ -s /root/breach-lab.sh ] && exit 0; sleep 2;
+      done; exit 1'
+    - curtin in-target --target=/target -- chmod 0700 /root/breach-lab.sh
+    # First boot runs it once; the unit is enqueued before the multi-user target is reached.
+    - >-
+      curtin in-target --target=/target -- sh -c 'printf "%s\n" "[Unit]"
+      "Description=breach-lab provisioner (once, first boot)" "After=network-online.target"
+      "Wants=network-online.target" "ConditionPathExists=/root/breach-lab.sh" "" "[Service]"
+      "Type=oneshot" "RemainAfterExit=yes" "ExecStart=/usr/bin/env bash /root/breach-lab.sh"
+      "StandardOutput=append:/var/log/breach-lab.log" "StandardError=append:/var/log/breach-lab.log"
+      "TimeoutStartSec=0" "" "[Install]" "WantedBy=multi-user.target"
+      > /etc/systemd/system/breach-lab.service'
+    - curtin in-target --target=/target -- systemctl enable breach-lab.service
+
+  shutdown: poweroff

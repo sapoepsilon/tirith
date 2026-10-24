@@ -1,0 +1,109 @@
+# Tirith on the pve3 LXC (CT 161, 192.168.50.161). Run from /opt/tirith/deploy:
+#   docker compose --env-file tirith.env up -d --build
+#
+# Exposure: backend only on 127.0.0.1:8000 (dashboard + mcp reach it as http://backend:8000 on the
+# compose network). mcp :8787 serves MCP only at /mcp/<TIRITH_MCP_PATH_SECRET>. dashboard :3000 is
+# behind basic auth and proxies to the backend server side with the API token.
+# Env split: tirith.env (backend; GitHub/LLM secrets live only here), mcp.env (MCP server only).
+# The dashboard gets just the four variables it needs, interpolated from tirith.env.
+name: tirith
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../deploy/backend.Dockerfile
+    image: tirith/backend:local
+    restart: unless-stopped
+    env_file: tirith.env
+    environment:
+      TIRITH_DATA_DIR: ${TIRITH_DATA_DIR:-/opt/tirith-data}
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      # Scanners/lab run as sibling containers on the host daemon.
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Same absolute path on host and in the container so scanner bind mounts resolve.
+      - ${TIRITH_DATA_DIR:-/opt/tirith-data}:${TIRITH_DATA_DIR:-/opt/tirith-data}
+      - /opt/tirith/targets:/opt/tirith/targets
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  mcp:
+    build:
+      context: ../plugin/server
+      dockerfile: ../../deploy/mcp.Dockerfile
+    image: tirith/mcp:local
+    restart: unless-stopped
+    # Only MCP settings + the backend API token. No GitHub/LLM secrets.
+    env_file: mcp.env
+    environment:
+      TIRITH_BACKEND_URL: http://backend:8000
+      PORT: "8787"
+    ports:
+      - "8787:8787"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  dashboard:
+    build:
+      context: ../dashboard
+      dockerfile: ../deploy/dashboard.Dockerfile
+      args:
+        NEXT_PUBLIC_TIRITH_MOCK: ${NEXT_PUBLIC_TIRITH_MOCK:-}
+    image: tirith/dashboard:local
+    restart: unless-stopped
+    # Explicit list (no env_file) so the dashboard never sees GitHub/LLM secrets.
+    environment:
+      TIRITH_BACKEND_INTERNAL_URL: http://backend:8000
+      TIRITH_API_TOKEN: ${TIRITH_API_TOKEN:?TIRITH_API_TOKEN must be set in tirith.env}
+      TIRITH_DASH_USER: ${TIRITH_DASH_USER:-}
+      TIRITH_DASH_PASSWORD: ${TIRITH_DASH_PASSWORD:-}
+      # Read-only view of the backend's evidence volume, for serving analyst screenshots.
+      TIRITH_EVIDENCE_DIR: ${TIRITH_DATA_DIR:-/opt/tirith-data}/evidence
+    volumes:
+      - ${TIRITH_DATA_DIR:-/opt/tirith-data}:${TIRITH_DATA_DIR:-/opt/tirith-data}:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/favicon.ico').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # Intentional demo target: six flaws, used as the "watch it get breached in 30 s" box. Host-only port, so a
+  # person at the LAN can reproduce the analyst's steps by hand. Never exposed through the tunnel.
+  breach-lab:
+    build:
+      context: ../targets/breach-lab/app
+    image: tirith/breach-lab:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8090:8080"
+    security_opt: ["no-new-privileges"]
+    cap_drop: ["ALL"]
+    mem_limit: 512m
+    pids_limit: 128
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys;sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s

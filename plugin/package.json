@@ -1,0 +1,11 @@
+{
+  "name": "tirith-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix server run build",
+    "package": "node server/scripts/package.mjs",
+    "start": "npm --prefix server start",
+    "mock": "npm --prefix server run mock"
+  }
+}

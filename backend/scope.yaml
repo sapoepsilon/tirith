@@ -1,0 +1,67 @@
+# Tirith scope allowlist. Anything not matched here is denied (policy.denied + audit).
+# github_repos and url_hosts are exact entries (no globs). Relative local paths resolve against this
+# file's folder. asset_profiles `match` entries are fnmatch globs (they only pick defaults, not scope).
+
+github_repos:       # exact owner/name, case-insensitive
+  - "sapoepsilon/tirith-demo-target"
+
+local_paths:
+  - ".."            # the tirith/ folder and everything under it
+
+url_hosts:          # exact host:port pairs (ZAP passive, screenshots, live requests); no port = 80/443
+  # The breach-lab VM (metasploitable, guest 162) on its own host leg. Deliberately weak services.
+  - "192.168.50.100:21"     # vsftpd, anonymous read+write
+  - "192.168.50.100:80"     # DVWA (/dvwa), PHPMyAdmin (/phpmyadmin), WebDAV (/dav), SVN (/svn/demo)
+  - "192.168.50.100:139"    # Samba netbios
+  - "192.168.50.100:445"    # Samba, guest-writable public share
+  - "192.168.50.100:2049"   # NFS, world-readable export
+  - "192.168.50.100:3306"   # MariaDB, root without password (speaks its own protocol, not HTTP)
+  - "192.168.50.100:8080"   # Tomcat 10 manager
+  - "192.168.50.100:8088"   # Jenkins, admin/admin
+  # Parallel Metasploitable box (guest 163) behind the socat shim on the pve3 host leg: Apache 2.4.7,
+  # the CTF payroll flag app, the chat room, Drupal 7.5. Port 8162 = guest :80, not a second Apache.
+  - "192.168.50.161:8162"
+  # The host running this backend (dashboards on the same box):
+  - "127.0.0.1:8000"
+  # Copy ports: the boot-fixed breach-lab port, plus the fixture ports the tests pin the analyst to.
+  - "localhost:8090"
+  - "127.0.0.1:8090"
+  - "localhost:5000"
+  - "localhost:5006"
+  - "192.168.50.161:3000"   # tirith dashboard, from the LAN
+  - "192.168.50.161:8787"   # tirith MCP, from the LAN
+
+# An alias is only honoured while the host:port it belongs to is listed above. The second box is reachable
+# on its own address too, so a seeded URL naming the guest directly must not be refused.
+url_aliases:
+  "192.168.50.161:8162": ["192.168.50.129:8162"]   # same service: pve3 shim vs. the guest direct
+
+# Host assets ("kind: host"): read-only service discovery + active checks on your own infrastructure.
+# Entries are exact hostnames/IPs or CIDRs. A CIDR authorises the hosts you name, not subnet sweeps.
+host_targets:
+  - "192.168.50.100"      # metasploitable (breach lab)
+  - "192.168.50.129"      # metasploitable 3 (second box)
+  - "192.168.50.161"      # tirith itself
+  - "127.0.0.1"           # the machine running this backend
+host_ports: [21, 22, 25, 53, 80, 111, 139, 443, 445, 2049, 3000, 3306, 5432, 6379, 8000, 8080, 8088, 8162, 8443, 8787, 9090]
+
+lab_network: tirith-lab   # docker network name; without docker the lab copies run as local processes
+
+# Per-asset focus. `match` globs test the asset ref, name, or ref basename. Fields set on the asset
+# itself (POST /api/assets {focus, exclude, sub_apps} or PATCH /api/assets/{id}) take precedence.
+asset_profiles:
+  - match: ["dockerized_labs", "pygoat"]
+    focus: ["introduction/**", "dockerized_labs/**", "pygoat/**"]
+    exclude: ["static/**", "templates/**"]
+    sub_apps: ["dockerized_labs/*", "challenge/labs/*", "challenge"]
+  - match: ["192.168.50.100*", "metasploitable"]
+    sub_apps:
+      - "/dvwa/*"           # each vulnerable app in its own directory is its own sub-app
+      - "/phpmyadmin/*"
+      - "/dav/*"
+      - "/manager/*"
+  - match: ["192.168.50.161:8162", "192.168.50.129*", "metasploitable3"]   # the parallel box: Drupal 7.5,
+    sub_apps:                                                              # chat room, payroll flag app
+      - "/drupal/*"
+      - "/chat/*"
+      - "/phpmyadmin/*"

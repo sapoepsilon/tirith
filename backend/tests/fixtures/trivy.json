@@ -1,0 +1,814 @@
+{
+ "SchemaVersion": 2,
+ "Trivy": {
+  "Version": "0.76.1"
+ },
+ "ReportID": "01a16c5c-703d-7cb3-b6c2-38a9e1cb95ac",
+ "CreatedAt": "2026-10-24T05:22:39.805833134Z",
+ "ArtifactID": "sha256:ec698b3fc949985914db8772d73734d44dad32e469974b4ac1a4fe4c67d5f391",
+ "ArtifactName": "/src",
+ "ArtifactType": "repository",
+ "Results": [
+  {
+   "Target": "requirements.txt",
+   "Class": "lang-pkgs",
+   "Type": "pip",
+   "Packages": [
+    {
+     "Name": "flask",
+     "Identifier": {
+      "PURL": "pkg:pypi/flask@0.12.2",
+      "UID": "8144ea1e22487612"
+     },
+     "Version": "0.12.2",
+     "Locations": [
+      {
+       "StartLine": 1,
+       "EndLine": 1
+      }
+     ],
+     "AnalyzedBy": "pip"
+    },
+    {
+     "Name": "jinja2",
+     "Identifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "Version": "2.10",
+     "Locations": [
+      {
+       "StartLine": 4,
+       "EndLine": 4
+      }
+     ],
+     "AnalyzedBy": "pip"
+    },
+    {
+     "Name": "pyyaml",
+     "Identifier": {
+      "PURL": "pkg:pypi/pyyaml@5.3",
+      "UID": "71ee91b5efd1f6b1"
+     },
+     "Version": "5.3",
+     "Locations": [
+      {
+       "StartLine": 3,
+       "EndLine": 3
+      }
+     ],
+     "AnalyzedBy": "pip"
+    },
+    {
+     "Name": "requests",
+     "Identifier": {
+      "PURL": "pkg:pypi/requests@2.19.1",
+      "UID": "ebfa0f8a25b158c"
+     },
+     "Version": "2.19.1",
+     "Locations": [
+      {
+       "StartLine": 2,
+       "EndLine": 2
+      }
+     ],
+     "AnalyzedBy": "pip"
+    }
+   ],
+   "Vulnerabilities": [
+    {
+     "VulnerabilityID": "CVE-2018-1000656",
+     "VendorIDs": [
+      "GHSA-562c-5r94-xh97"
+     ],
+     "PkgName": "flask",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/flask@0.12.2",
+      "UID": "8144ea1e22487612"
+     },
+     "InstalledVersion": "0.12.2",
+     "FixedVersion": "0.12.3",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2018-1000656",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:d767226af01eba796cc275c5c9373bd192ce49294df534badbe0800ee25beba7",
+     "Title": "python-flask: Denial of Service via crafted JSON file",
+     "Description": "The Pallets Project flask version Before 0.12.3 contains a CWE-20: Improper Input Validation vulnerability in flask that can result in Large amount of memory usage possibly leading to denial of servic",
+     "Severity": "HIGH",
+     "CweIDs": [
+      "CWE-20"
+     ],
+     "VendorSeverity": {
+      "ghsa": 3,
+      "nvd": 3,
+      "redhat": 1,
+      "ubuntu": 1
+     },
+     "PublishedDate": "2018-08-20T19:31:45.34Z",
+     "LastModifiedDate": "2026-06-17T01:33:02.153Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2019-1010083",
+     "VendorIDs": [
+      "GHSA-5wv5-4vpf-pj6m"
+     ],
+     "PkgName": "flask",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/flask@0.12.2",
+      "UID": "8144ea1e22487612"
+     },
+     "InstalledVersion": "0.12.2",
+     "FixedVersion": "1.0",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2019-1010083",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:e9dad01acd7f572f8ebac5419ea4dc5cc0b1d87bfdee2324c150a45057d0dbf6",
+     "Title": "python-flask: unexpected memory usage can lead to denial of service via crafted encoded JSON data",
+     "Description": "The Pallets Project Flask before 1.0 is affected by: unexpected memory usage. The impact is: denial of service. The attack vector is: crafted encoded JSON data. The fixed version is: 1. NOTE: this may",
+     "Severity": "HIGH",
+     "VendorSeverity": {
+      "ghsa": 3,
+      "nvd": 3,
+      "redhat": 2,
+      "ubuntu": 1
+     },
+     "PublishedDate": "2019-07-17T14:15:11.57Z",
+     "LastModifiedDate": "2026-06-17T02:09:46.147Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2023-30861",
+     "VendorIDs": [
+      "GHSA-m2qf-hxjv-5gpq"
+     ],
+     "PkgName": "flask",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/flask@0.12.2",
+      "UID": "8144ea1e22487612"
+     },
+     "InstalledVersion": "0.12.2",
+     "FixedVersion": "2.3.2, 2.2.5",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-30861",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:3c6b356b75a7fad2caf52e1daabd3619378525ee622a6e3da110104088a4260e",
+     "Title": "flask: Possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+     "Description": "Flask is a lightweight WSGI web application framework. When all of the following conditions are met, a response containing data intended for one client may be cached and subsequently sent by the proxy",
+     "Severity": "HIGH",
+     "CweIDs": [
+      "CWE-539"
+     ],
+     "VendorSeverity": {
+      "amazon": 3,
+      "ghsa": 3,
+      "nvd": 3,
+      "oracle-oval": 3,
+      "redhat": 3,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2023-05-02T18:15:52.373Z",
+     "LastModifiedDate": "2026-06-17T05:55:47.853Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-27205",
+     "VendorIDs": [
+      "GHSA-68rp-wp8r-4726"
+     ],
+     "PkgName": "flask",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/flask@0.12.2",
+      "UID": "8144ea1e22487612"
+     },
+     "InstalledVersion": "0.12.2",
+     "FixedVersion": "3.1.3",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-27205",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:98a258c8d77dcd2e583394ef9a7b64ae6c135d5675bb56f0bb39f0307a56ac10",
+     "Title": "flask: Flask: Information disclosure via improper caching of session data",
+     "Description": "Flask is a web server gateway interface (WSGI) web application framework. In versions 3.1.2 and below, when the session object is accessed, Flask should set the Vary: Cookie header., resulting in a Us",
+     "Severity": "LOW",
+     "CweIDs": [
+      "CWE-524"
+     ],
+     "VendorSeverity": {
+      "amazon": 2,
+      "ghsa": 1,
+      "nvd": 2,
+      "redhat": 2,
+      "ubuntu": 1
+     },
+     "PublishedDate": "2026-02-21T06:17:00.91Z",
+     "LastModifiedDate": "2026-06-17T10:26:50.7Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2019-10906",
+     "VendorIDs": [
+      "GHSA-462w-v97r-4m45"
+     ],
+     "PkgName": "jinja2",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "InstalledVersion": "2.10",
+     "FixedVersion": "2.10.1",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2019-10906",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:027b8ccafcc4b075903c6216a905a61a4e00d84f96cf32ae12fbc3e696137fe4",
+     "Title": "python-jinja2: str.format_map allows sandbox escape",
+     "Description": "In Pallets Jinja before 2.10.1, str.format_map allows a sandbox escape.",
+     "Severity": "HIGH",
+     "VendorSeverity": {
+      "amazon": 3,
+      "azure": 3,
+      "ghsa": 3,
+      "nvd": 3,
+      "oracle-oval": 3,
+      "redhat": 3,
+      "rocky": 3,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2019-04-07T00:29:00.213Z",
+     "LastModifiedDate": "2026-06-17T02:11:52.25Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2020-28493",
+     "VendorIDs": [
+      "GHSA-g3rq-g295-4j3m"
+     ],
+     "PkgName": "jinja2",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "InstalledVersion": "2.10",
+     "FixedVersion": "2.11.3",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2020-28493",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:bef8f7d2f681778789b4fa7b01d7943e44006e29827aaa3bc0ddc83159b6e7d7",
+     "Title": "python-jinja2: ReDoS vulnerability in the urlize filter",
+     "Description": "This affects the package jinja2 from 0.0.0 and before 2.11.3. The ReDoS vulnerability is mainly due to the `_punctuation_re regex` operator and its use of multiple wildcards. The last wildcard is the ",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-400"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "nvd": 2,
+      "oracle-oval": 2,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 1
+     },
+     "PublishedDate": "2021-02-01T20:15:12.517Z",
+     "LastModifiedDate": "2026-06-17T03:10:32.07Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-22195",
+     "VendorIDs": [
+      "GHSA-h5c8-rqwp-cp95"
+     ],
+     "PkgName": "jinja2",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "InstalledVersion": "2.10",
+     "FixedVersion": "3.1.3",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-22195",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:fafdcdffdb8d56624cc4600af004ee206ae349ca692e9b36bf7a367609c746ed",
+     "Title": "jinja2: HTML attribute injection when passing user input as keys to xmlattr filter",
+     "Description": "Jinja is an extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. It is possible to inject arbitrary HTML attributes into the rendered HTML te",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-79"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "amazon": 2,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "nvd": 2,
+      "oracle-oval": 2,
+      "photon": 2,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2024-01-11T03:15:11.2Z",
+     "LastModifiedDate": "2026-06-17T07:10:54.907Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-34064",
+     "VendorIDs": [
+      "GHSA-h75v-3vvj-5mfj"
+     ],
+     "PkgName": "jinja2",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "InstalledVersion": "2.10",
+     "FixedVersion": "3.1.4",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-34064",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:59a387cf9c26edc2b88f0dafa841cec6f09857f0c3154472259ccbf09befb0de",
+     "Title": "jinja2: accepts keys containing non-attribute characters",
+     "Description": "Jinja is an extensible templating engine. The `xmlattr` filter in affected versions of Jinja accepts keys containing non-attribute characters. XML/HTML attributes cannot contain spaces, `/`, `>`, or `",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-79"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "amazon": 2,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "oracle-oval": 2,
+      "photon": 2,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2024-05-06T15:15:23.803Z",
+     "LastModifiedDate": "2026-06-17T07:32:50.2Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-56326",
+     "VendorIDs": [
+      "GHSA-q2x7-8rv6-6q7h"
+     ],
+     "PkgName": "jinja2",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "InstalledVersion": "2.10",
+     "FixedVersion": "3.1.5",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-56326",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:854af8bbe1324c6d04ba0a25a8552d692a13d381ece1c5c3917b99b44cd4ca41",
+     "Title": "jinja2: Jinja has a sandbox breakout through indirect reference to format method",
+     "Description": "Jinja is an extensible templating engine. Prior to 3.1.5, An oversight in how the Jinja sandboxed environment detects calls to str.format allows an attacker that controls the content of a template to ",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-693",
+      "CWE-1336"
+     ],
+     "VendorSeverity": {
+      "alma": 3,
+      "amazon": 3,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "oracle-oval": 2,
+      "photon": 3,
+      "redhat": 2,
+      "rocky": 3,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2024-12-23T16:15:07.59Z",
+     "LastModifiedDate": "2026-06-17T08:12:03.003Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-27516",
+     "VendorIDs": [
+      "GHSA-cpwx-vrp4-4pq7"
+     ],
+     "PkgName": "jinja2",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/jinja2@2.10",
+      "UID": "32004b5960ee93c"
+     },
+     "InstalledVersion": "2.10",
+     "FixedVersion": "3.1.6",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-27516",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:bfb7cdb76d0c55f9f6dd289b8c4b79735af47a72077ef09cb71591a89ad8f2f8",
+     "Title": "jinja2: Jinja sandbox breakout through attr filter selecting format method",
+     "Description": "Jinja is an extensible templating engine. Prior to 3.1.6, an oversight in how the Jinja sandboxed environment interacts with the |attr filter allows an attacker that controls the content of a template",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-1336"
+     ],
+     "VendorSeverity": {
+      "alma": 3,
+      "amazon": 3,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "nvd": 3,
+      "oracle-oval": 3,
+      "photon": 3,
+      "redhat": 3,
+      "rocky": 3,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2025-03-05T21:15:20.073Z",
+     "LastModifiedDate": "2026-06-17T09:03:44.56Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2020-14343",
+     "VendorIDs": [
+      "GHSA-8q59-q68h-6hv4"
+     ],
+     "PkgName": "pyyaml",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/pyyaml@5.3",
+      "UID": "71ee91b5efd1f6b1"
+     },
+     "InstalledVersion": "5.3",
+     "FixedVersion": "5.4",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2020-14343",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:1334f89c9d7f6f7298464bb3744206e407ee5d9e9cf344c7bf6e4ba7641e56f3",
+     "Title": "PyYAML: incomplete fix for CVE-2020-1747",
+     "Description": "A vulnerability was discovered in the PyYAML library in versions before 5.4, where it is susceptible to arbitrary code execution when it processes untrusted YAML files through the full_load method or ",
+     "Severity": "CRITICAL",
+     "CweIDs": [
+      "CWE-20"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "cbl-mariner": 4,
+      "ghsa": 4,
+      "nvd": 4,
+      "oracle-oval": 2,
+      "photon": 4,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2021-02-09T21:15:12.707Z",
+     "LastModifiedDate": "2026-06-17T02:54:34.453Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2020-1747",
+     "VendorIDs": [
+      "GHSA-6757-jp84-gxfx"
+     ],
+     "PkgName": "pyyaml",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/pyyaml@5.3",
+      "UID": "71ee91b5efd1f6b1"
+     },
+     "InstalledVersion": "5.3",
+     "FixedVersion": "5.3.1",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2020-1747",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:1b6f553800d30fd08281938a2ff8c419260413b117d7cbb154206fad1a28ab5a",
+     "Title": "PyYAML: arbitrary command execution through python/object/new when FullLoader is used",
+     "Description": "A vulnerability was discovered in the PyYAML library in versions before 5.3.1, where it is susceptible to arbitrary code execution when it processes untrusted YAML files through the full_load method o",
+     "Severity": "CRITICAL",
+     "CweIDs": [
+      "CWE-20"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "cbl-mariner": 4,
+      "ghsa": 4,
+      "nvd": 4,
+      "oracle-oval": 2,
+      "photon": 4,
+      "redhat": 2,
+      "rocky": 2
+     },
+     "PublishedDate": "2020-03-24T15:15:12.293Z",
+     "LastModifiedDate": "2026-06-17T03:02:19.383Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2018-18074",
+     "VendorIDs": [
+      "GHSA-x84v-xcm2-53pg"
+     ],
+     "PkgName": "requests",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/requests@2.19.1",
+      "UID": "ebfa0f8a25b158c"
+     },
+     "InstalledVersion": "2.19.1",
+     "FixedVersion": "2.20.0",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2018-18074",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:a6eb6ab29172f4966782d2744df5c0dc930af521300659b45d5bd03e37e73c40",
+     "Title": "python-requests: Redirect from HTTPS to HTTP does not remove Authorization header",
+     "Description": "The Requests package before 2.20.0 for Python sends an HTTP Authorization header to an http URI upon receiving a same-hostname https-to-http redirect, which makes it easier for remote attackers to dis",
+     "Severity": "HIGH",
+     "CweIDs": [
+      "CWE-522"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "amazon": 2,
+      "ghsa": 3,
+      "nvd": 3,
+      "oracle-oval": 2,
+      "photon": 3,
+      "redhat": 1,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2018-10-09T17:29:01.897Z",
+     "LastModifiedDate": "2026-06-17T01:46:44.62Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2023-32681",
+     "VendorIDs": [
+      "GHSA-j8r2-6x86-q33q"
+     ],
+     "PkgName": "requests",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/requests@2.19.1",
+      "UID": "ebfa0f8a25b158c"
+     },
+     "InstalledVersion": "2.19.1",
+     "FixedVersion": "2.31.0",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-32681",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:6050e148a1f905ae82e24351b513b9ba89f5fca6f948ba9d61cc43c6edf442b1",
+     "Title": "python-requests: Unintended leak of Proxy-Authorization header",
+     "Description": "Requests is a HTTP library. Since Requests 2.3.0, Requests has been leaking Proxy-Authorization headers to destination servers when redirected to an HTTPS endpoint. This is a product of how we use `re",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-200"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "amazon": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "nvd": 2,
+      "oracle-oval": 2,
+      "photon": 2,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2023-05-26T18:15:14.147Z",
+     "LastModifiedDate": "2026-06-17T05:59:22.687Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-35195",
+     "VendorIDs": [
+      "GHSA-9wx4-h78v-vm56"
+     ],
+     "PkgName": "requests",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/requests@2.19.1",
+      "UID": "ebfa0f8a25b158c"
+     },
+     "InstalledVersion": "2.19.1",
+     "FixedVersion": "2.32.0",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-35195",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:8137ef5609ccda8ff855fcbf6794768f4d5b72c8fafe87e1ee2d052c3b78a5ce",
+     "Title": "requests: subsequent requests to the same host ignore cert verification",
+     "Description": "Requests is a HTTP library. Prior to 2.32.0, when making requests through a Requests `Session`, if the first request is made with `verify=False` to disable cert verification, all subsequent requests t",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-670"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "amazon": 2,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "oracle-oval": 2,
+      "photon": 2,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2024-05-20T21:15:09.99Z",
+     "LastModifiedDate": "2026-06-17T07:34:31.23Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-47081",
+     "VendorIDs": [
+      "GHSA-9hjg-9r4m-mvj7"
+     ],
+     "PkgName": "requests",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/requests@2.19.1",
+      "UID": "ebfa0f8a25b158c"
+     },
+     "InstalledVersion": "2.19.1",
+     "FixedVersion": "2.32.4",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-47081",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:d8d15f9c03eba680c4068b7fba554191169bcfda6a4eac6b8319c1c8a3978b32",
+     "Title": "requests: Requests vulnerable to .netrc credentials leak via malicious URLs",
+     "Description": "Requests is a HTTP library. Due to a URL parsing issue, Requests releases prior to 2.32.4 may leak .netrc credentials to third parties for specific maliciously-crafted URLs. Users should upgrade to ve",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-522"
+     ],
+     "VendorSeverity": {
+      "alma": 2,
+      "amazon": 2,
+      "azure": 2,
+      "cbl-mariner": 2,
+      "ghsa": 2,
+      "oracle-oval": 2,
+      "photon": 2,
+      "redhat": 2,
+      "rocky": 2,
+      "ubuntu": 2
+     },
+     "PublishedDate": "2025-06-09T18:15:24.983Z",
+     "LastModifiedDate": "2026-06-17T07:56:30.697Z"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-25645",
+     "VendorIDs": [
+      "GHSA-gc5v-m9x4-r6x2"
+     ],
+     "PkgName": "requests",
+     "PkgIdentifier": {
+      "PURL": "pkg:pypi/requests@2.19.1",
+      "UID": "ebfa0f8a25b158c"
+     },
+     "InstalledVersion": "2.19.1",
+     "FixedVersion": "2.33.0",
+     "Status": "fixed",
+     "SeveritySource": "ghsa",
+     "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-25645",
+     "DataSource": {
+      "ID": "ghsa",
+      "Name": "GitHub Security Advisory pip",
+      "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+     },
+     "Fingerprint": "sha256:94724657f6bb2e01712a8bbfceca367b817d7d547272c631ed4a72ef98d50a32",
+     "Title": "requests: Requests: Security bypass due to predictable temporary file creation",
+     "Description": "Requests is a HTTP library. Prior to version 2.33.0, the `requests.utils.extract_zipped_paths()` utility function uses a predictable filename when extracting files from zip archives into the system te",
+     "Severity": "MEDIUM",
+     "CweIDs": [
+      "CWE-377"
+     ],
+     "VendorSeverity": {
+      "azure": 2,
+      "ghsa": 2,
+      "nvd": 2,
+      "photon": 2,
+      "redhat": 2,
+      "ubuntu": 1
+     },
+     "PublishedDate": "2026-03-25T17:16:52.97Z",
+     "LastModifiedDate": "2026-06-17T10:25:00.443Z"
+    }
+   ]
+  },
+  {
+   "Target": "Dockerfile",
+   "Class": "config",
+   "Type": "dockerfile",
+   "MisconfSummary": {
+    "Successes": 25,
+    "Failures": 2
+   },
+   "Misconfigurations": [
+    {
+     "Type": "Dockerfile Security Check",
+     "ID": "DS-0002",
+     "Title": "Image user should not be 'root'",
+     "Description": "Running containers with 'root' user can lead to a container escape situation. It is a best practice to run containers as non-root users, which can be done by adding a 'USER' statement to the Dockerfile.",
+     "Message": "Specify at least 1 USER command in Dockerfile with non-root user as argument",
+     "Namespace": "builtin.dockerfile.DS002",
+     "Query": "data.builtin.dockerfile.DS002.deny",
+     "Resolution": "Add 'USER <non root user name>' line to the Dockerfile",
+     "Severity": "HIGH",
+     "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0002",
+     "References": [
+      "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
+      "https://avd.aquasec.com/misconfig/ds-0002"
+     ],
+     "Status": "FAIL",
+     "CauseMetadata": {
+      "Provider": "Dockerfile",
+      "Service": "general"
+     }
+    },
+    {
+     "Type": "Dockerfile Security Check",
+     "ID": "DS-0026",
+     "Title": "No HEALTHCHECK defined",
+     "Description": "You should add HEALTHCHECK instruction in your docker container images to perform the health check on running containers.",
+     "Message": "Add HEALTHCHECK instruction in your Dockerfile",
+     "Namespace": "builtin.dockerfile.DS026",
+     "Query": "data.builtin.dockerfile.DS026.deny",
+     "Resolution": "Add HEALTHCHECK instruction in Dockerfile",
+     "Severity": "LOW",
+     "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0026",
+     "References": [
+      "https://blog.aquasec.com/docker-security-best-practices",
+      "https://avd.aquasec.com/misconfig/ds-0026"
+     ],
+     "Status": "FAIL",
+     "CauseMetadata": {
+      "Provider": "Dockerfile",
+      "Service": "general"
+     }
+    }
+   ]
+  }
+ ]
+}

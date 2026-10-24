@@ -1,0 +1,13 @@
+targets/*
+!targets/analyst-lab/
+!targets/breach-lab/
+.env
+deploy/*.env
+.data/
+node_modules/
+.next/
+.venv/
+dist/
+*.log
+.DS_Store
+**/__pycache__/

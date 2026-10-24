@@ -1,0 +1,12 @@
+# Tirith-owned semgrep excludes (one gitignore-style pattern per line, passed as --exclude).
+# Repository .semgrepignore files are NOT consulted (semgrep runs with
+# --x-semgrepignore-filename pointing at a name no repository uses, so only the
+# pinned image's built-in defaults + these patterns apply) and `nosemgrep`
+# comments are ignored (--disable-nosem).
+node_modules
+.venv
+venv
+vendor
+dist
+build
+*.min.js

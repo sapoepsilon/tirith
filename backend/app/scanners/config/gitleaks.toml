@@ -1,0 +1,7 @@
+# Tirith-pinned gitleaks config. Passed with --config so a repository's own
+# .gitleaks.toml / GITLEAKS_CONFIG never changes what is detected.
+title = "tirith"
+
+[extend]
+# Built-in rule set of the pinned gitleaks image.
+useDefault = true

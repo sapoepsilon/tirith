@@ -1,0 +1,13 @@
+# Tirith-pinned trivy config. Passed with --config; repository trivy.yaml /
+# .trivyignore files are not consulted (--ignorefile points at the empty
+# Tirith file below).
+scan:
+  scanners:
+    - vuln
+    - misconfig
+severity:
+  - UNKNOWN
+  - LOW
+  - MEDIUM
+  - HIGH
+  - CRITICAL

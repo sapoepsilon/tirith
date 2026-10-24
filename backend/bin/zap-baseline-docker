@@ -1,0 +1,6 @@
+#!/bin/sh
+# Reports use the shared host data directory mounted at the same absolute path.
+# Keep Docker's bridge networking so LAN forwards remain reachable.
+exec docker run --rm --user "$(id -u):$(id -g)" \
+  -v "$PWD":/zap/wrk/:rw \
+  "${TIRITH_ZAP_IMAGE:-zaproxy/zap-stable}" zap-baseline.py "$@"
